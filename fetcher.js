@@ -14,7 +14,7 @@
 
 const request = require('request');
 const fs = require('fs'); //allows you to work with the file system on your computer
-// const readline = require('readline'); // provides a way of reading a datastream, one line at a time
+const readline = require('readline'); // provides a way of reading a datastream, one line at a time
 
 // 1. get command line arguments 
 const args = process.argv.slice(2);
@@ -22,16 +22,20 @@ const url = args[0]; // url argument
 const filePath = args[1]; // filepath where we want the resource to download
 
 // 2. make http request
-request('http://example.edu', (error, response, body) => {
-  console.log('error:', error); // Print the error if one occurred
-  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-  console.log('body:', body); // Print the HTML for the Google homepage.
-});
+// request('http://example.edu', (error, response, body) => {
+//   console.log('error:', error); // Print the error if one occurred
+//   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+//   console.log('body:', body); // Print the HTML for the Google homepage.
+// });
 
 // 3. write file to folder using fs 
-
-
 // command to write files: fs.writeFile();
-fs.writeFile()
+fs.writeFile("./test.txt", "Is this working", function(err) {
+  if (err) {
+    return console.log("Error, didn't print", err);
+  }
+  console.log("File has been written and saved?"); 
+});
+
 
 // desired output: "Downloaded and saved ${number of bytes} to ${local file path}"
