@@ -11,23 +11,31 @@
 
 const request = require('request');
 const fs = require('fs');
-// const readline = require('readline');
+const readline = require('readline');
+const isValid = require('is-valid-path');
 
-// const rl = readline.createInterface({
-//   input: process.stdin,
-//   output: process.stdout
-// });
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
 const args = process.argv.slice(2);
 const url = args[0]; 
 const filePath = args[1];
 
-request(url, (error, response, body) => {
+if (!isValid(filePath)) {
+  rl.close();
+  return console.log("Provided filepath is invalid, try again!");
 
-  fs.writeFile(filePath, body, (error) => {
-    if (error) {
-      return console.log("Error, didn't print", error);
-    }
-    console.log(`Downloaded and saved ${body.length} bytes to ${filePath}`)
+} else {
+  request(url, (error, response, body) => {
+  
+    fs.writeFile(filePath, body, (error) => {
+      if (error) {
+        return console.log("Error, didn't print", error);
+      }
+      console.log(`Downloaded and saved ${body.length} bytes to ${filePath}`)
+      rl.close();
+    });
   });
-});
+}
